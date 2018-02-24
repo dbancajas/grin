@@ -1,6 +1,6 @@
 \title{Grin Developer Reference Manual}
 \author{
-	Dean Ancajas \\
+	Maintained By: Dean Ancajas \\
 }
 \date{\today}
 
@@ -10,25 +10,50 @@
 \maketitle
 
 \begin{abstract}
-This document will give give details on how Grin, a minimimal implementation of the mimble wimble protocol is implemented in Rust. We will give details regarding
-design decisions made  blah blah blah.
+This document will discuss details on how Grin, an implementation of the mimble wimble protocol is designed in Rust.  The goal of this manual is to bring up to speed any developer looking to contribute to Grin. Where there is conflict between this document and the source code, the source code will supersede the information provided here.
 \end{abstract}
 
 \section{Introduction}
-Grin is an implementation of the MimbleWimble\ref{} protocol that is written from scratch using the Rust language\ref{}. The reason for using Rust are based on a lot memory-safe features provided by the language. As such, a lot of code listings in this document will be in Rust. \footnote{The details are outside the scope of this document but the Rust's benefits can be seen in \ref{}}
+Grin is an implementation of the MimbleWimble\ref{} protocol that is written from scratch using the Rust language\ref{}. The reason for using Rust are based on several memory-safe features provided by the language. As such, a lot of code listings in this document will be in Rust. \footnote{The details are outside the scope of this document but the Rust's benefits can be seen in \ref{}}
 
 \paragraph{Outline}
 
-We start by giving an overview of the Grin reference client in Section \ref{}. The details of the block validation are described in Section~\ref{block_validation}.
+We start by giving an overview of the Grin implementation in Section \ref{sec:Overview}. A blockchain implementation like Grin has several interoperating modules with various complexities. Below are the key sections in this document.
+
+
+\begin{description}
+	\item Section~\ref{block_validation}: discusses how Grin validates/rejects a block and how it's added to the chain.
+	\item Section~\ref{core}: gives details on Hash, Block, Inputs, Output information and how they are serialized.
+	\item Section~\ref{POW}: details the Cuckoo-30 Proof-of-Work mining algorithm used by Grin.
+\end{description}
+
+
+The details of the block validation are described in .
 Finally, Section~\ref{conclusions} gives the conclusions.
 
-\section{Grin Architecture Overview}
+\section{Grin Implementation Overview}
+\label{sec:Overview}
+The Grin binary contains three core functionalities needed to operate the blockchain.
 
-\section{Block Validation Pipeline}\label{validation}
+\begin{description}
+
+	\item [Server] The server is in charge of obtaining/syncing the current state of the Grin blockchain and responding or propagating transactions to other peers in the network.
+	\item [Wallet] The wallet handles generation of private key, sending transactions, receiving transactions and checking balances.
+	\item [Client] The client functionality allows the user to obtain status from the server, to ban/unban specific peers. Banning specific peers are done automatically based on peer-behavior and will be discussed in detail in \ref{sec:Banning}
+
+\end{description}
+
+Each user in Grin wanting to mine will at least need to run both the Server (to receive and broadcast transactions) and the Wallet (to receive mining rewards). (Can we just run the server to serve as a bootnode/seednodes\ ?)
+
+
+\section{Block Validation Pipeline}\label{block_validation}
 A much longer \LaTeXe{} example was written by Gil~\cite{Gil:02}.
 
 \section{Consensus}\label{results}
 In this section we describe the results.
+
+\section{Cuckoo-30 Proof-of-Work Algorithm}\label{POW}
+We worked hard, and achieved very little.
 
 \section{}\label{conclusions}
 We worked hard, and achieved very little.
